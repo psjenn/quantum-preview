@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
+import { about } from '../data/pages';
+import { principals, advisors, site } from '../data/site';
+import { team } from '../lib/images';
+---
+
+<Base title="About" description={about.intro}>
+  <PageHero title="We’ve sat in your seat." lede={about.intro} />
+
+  <section class="section" aria-label="About Quantum">
+    <div class="wrap split">
+      <div>{about.body.map((p) => <p class="lede">{p}</p>)}</div>
+      <figure class="quote" style="align-self:center">
+        <blockquote>{site.motto}</blockquote>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--deep" aria-labelledby="lead-title">
+    <div class="wrap">
+      <div class="head"><h2 id="lead-title" class="bar h-mid">Principals</h2></div>
+      <div class="people">
+        {principals.map((p) => (
+          <article class="person" id={p.slug}>
+            <div class="person__photo"><Photo src={team(p.photo)} alt="" widths={[240, 480]} sizes="15rem" /></div>
+            <div>
+              <h3>{p.name}</h3>
+              <p class="person__role">{p.role}</p>
+              <p>{p.bio}</p>
+              <ul>{p.highlights.map((h) => <li>{h}</li>)}</ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="board-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="board-title" class="bar h-mid">Advisory board</h2>
+        <p class="lede">Executives from clubs, ticketing, agencies, finance, and construction who keep our advice current.</p>
+      </div>
+      <ul class="board">
+        {advisors.map((a) => <li><strong>{a.name}</strong><span>{a.role}<br />{a.org}</span></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>

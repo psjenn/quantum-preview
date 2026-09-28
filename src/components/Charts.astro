@@ -1,0 +1,39 @@
+---
+import { attendance, results } from '../data/site';
+
+const maxA = Math.max(...attendance.rows.map((r) => r.value));
+const fmt = (n: number) => n.toLocaleString('en-US');
+
+---
+
+<div class="proof">
+  <figure class="chart" style="margin:0">
+    <h3>{attendance.title}</h3>
+    <p class="chart__sub">{attendance.sub}</p>
+    <ul class="bars" aria-label="Attendance records">
+      {attendance.rows.map((r) => (
+        <li class="bars__row">
+          <span class="bars__label">{r.club}<small>{r.note}</small></span>
+          <span class="bars__track">
+            <span class="bars__mark" style={`--v:${(r.value / maxA) * 82}`}></span>
+            <span class="bars__value">{fmt(r.value)}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <p class="chart__foot">{attendance.footnote}</p>
+  </figure>
+
+  <div class="chart">
+    <h3>Revenue results</h3>
+    <p class="chart__sub">From recent Quantum engagements.</p>
+    <dl class="deltas">
+      {results.map((r) => (
+        <div>
+          <dt>{r.label}<small>{r.who}</small></dt>
+          <dd class="figure">{r.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</div>

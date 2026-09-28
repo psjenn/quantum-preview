@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { clientGroups } from '../data/site';
+import { colorLogo } from '../lib/images';
+
+const mixed: (readonly [string, string])[] = [];
+const longest = Math.max(...clientGroups.map((g) => g.teams.length));
+for (let i = 0; i < longest; i++) for (const g of clientGroups) if (g.teams[i]) mixed.push(g.teams[i]);
+const rows = [mixed.filter((_, i) => i % 2 === 0), mixed.filter((_, i) => i % 2 === 1)];
+---
+
+<div class="roll" data-roll>
+  {rows.map((row, r) => (
+    <div class:list={['roll__row', { 'roll__row--rev': r === 1 }]}>
+      <div class="roll__track">
+        <ul class="roll__set" aria-label={r === 0 ? 'Selected clients' : undefined}>
+          {row.map(([slug, name]) => (
+            <li><Image src={colorLogo(slug)} alt={name} title={name} height={144} /></li>
+          ))}
+        </ul>
+        {/* Duplicate set for a seamless loop */}
+        <ul class="roll__set" aria-hidden="true">
+          {row.map(([slug]) => (
+            <li><Image src={colorLogo(slug)} alt="" height={144} /></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ))}
+  <button class="roll__toggle" type="button" data-roll-toggle aria-pressed="false">Pause</button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-roll]').forEach((roll) => {
+    const btn = roll.querySelector<HTMLButtonElement>('[data-roll-toggle]');
+    btn?.addEventListener('click', () => {
+      const paused = roll.toggleAttribute('data-paused');
+      btn.setAttribute('aria-pressed', String(paused));
+      btn.textContent = paused ? 'Play' : 'Pause';
+    });
+  });
+</script>

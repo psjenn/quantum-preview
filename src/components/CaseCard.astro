@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import type { CaseStudy } from '../data/site';
+import { colorLogo } from '../lib/images';
+
+interface Props {
+  study: CaseStudy;
+  full?: boolean;
+}
+const { study: c, full = false } = Astro.props;
+const results = full ? c.results : c.results.slice(0, 3);
+---
+
+<article class="case" id={full ? c.slug : undefined}>
+  <div class="case__top">
+    <Image src={colorLogo(c.logo)} alt="" height={96} />
+    <div>
+      <div class="case__kind">{c.kind}</div>
+      <div class="case__client">{c.client}</div>
+    </div>
+  </div>
+  <div>
+    <h3>{c.title}</h3>
+    <p>{c.summary}</p>
+  </div>
+  {results.length > 0 && <ul>{results.map((r) => <li>{r}</li>)}</ul>}
+</article>

@@ -1,0 +1,150 @@
+---
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import { site, nav, services } from '../data/site';
+import CtaBand from '../components/CtaBand.astro';
+import Social from '../components/Social.astro';
+import logo from '../assets/brand/logo-white.png';
+import mark from '../assets/brand/q-mark.png';
+import archivo from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  cta?: { title?: string; body?: string; lead?: string[] } | false;
+}
+
+const { title, description = site.description, cta = {} } = Astro.props;
+const pageTitle = title ? `${title} | ${site.short}` : site.title;
+const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '').replace(/\/$/, '') || '/';
+const canonical = new URL(path, site.url).href;
+const ogImage = new URL('/og.png', site.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preload" href={archivo} as="font" type="font/woff2" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Quantum Sports + Entertainment Group: Operators, not advisors." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#050e2b" />
+    <link rel="icon" type="image/png" href={mark.src} />
+    <link rel="canonical" href={canonical} />
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var ready = function () { d.classList.add('is-ready'); };
+        var font = document.fonts && document.fonts.load ? document.fonts.load('900 1em "Archivo Variable"') : Promise.resolve();
+        Promise.race([font, new Promise(function (r) { setTimeout(r, 1500); })]).then(ready, ready);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="mast" data-mast>
+      <div class="wrap mast__in">
+        <a href="/" class="mast__logo" aria-label={`${site.name}, home`}>
+          <Image src={logo} alt="" width={380} loading="eager" />
+        </a>
+        <button class="mast__toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-toggle>
+          Menu
+        </button>
+        <nav class="mast__nav" id="site-nav" aria-label="Main">
+          {nav.map((l) => (
+            <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>
+          ))}
+        </nav>
+        <a class="btn btn--primary mast__cta" href="/contact">Work with us</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+      {cta !== false && <CtaBand {...cta} />}
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <div class="foot__grid">
+          <div>
+            <Image src={mark} alt="" width={96} class="foot__mark" />
+            <p class="foot__motto">{site.motto}</p>
+            <p>{site.founded}</p>
+            <Social />
+          </div>
+          <div>
+            <h2>What we do</h2>
+            <ul>
+              {services.map((s) => <li><a href={`/${s.slug}`}>{s.name}</a></li>)}
+              <li><a href="/work">Our work</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Company</h2>
+            <ul>
+              <li><a href="/about">About + Leadership</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot__base">
+          <span>© {new Date().getFullYear()} {site.name}</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/field';
+
+      const mast = document.querySelector<HTMLElement>('[data-mast]');
+      const toggle = document.querySelector<HTMLButtonElement>('[data-toggle]');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.textContent = open ? 'Close' : 'Menu';
+        mast?.toggleAttribute('data-open', open);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mast?.hasAttribute('data-open')) {
+          toggle?.click();
+          toggle?.focus();
+        }
+      });
+
+      document.querySelectorAll<HTMLImageElement>('img[data-fade]').forEach((img) => {
+        const done = () => img.classList.add('is-loaded');
+        if (img.complete) done();
+        else {
+          img.addEventListener('load', done, { once: true });
+          img.addEventListener('error', done, { once: true });
+        }
+      });
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            e.target.setAttribute('data-in', '');
+            io.unobserve(e.target);
+          }
+        },
+        { threshold: 0.35 },
+      );
+      document.querySelectorAll('.bars').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

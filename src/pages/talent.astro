@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { talent } from '../data/pages';
+import { quotes, caseStudies } from '../data/site';
+const cases = caseStudies.filter((c) => c.kind === 'Talent');
+---
+
+<Base title="Talent" description={talent.lede} cta={{ title: 'Your next hire should already know the job.', lead: ['talent', 'strategy'] }}>
+  <PageHero title="Talent" lede={talent.lede}>
+    <div class="actions">
+      <a class="btn btn--primary" href="/contact?topic=talent">Hire executive talent</a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-label="What we do">
+    <div class="wrap">
+      <div class="blocks">
+        {talent.blocks.map((b) => <div><h2>{b.title}</h2><p>{b.body}</p></div>)}
+      </div>
+      <p class="muted" style="margin-top:1.5rem">{talent.placements}</p>
+    </div>
+  </section>
+
+  <section class="section section--deep" aria-labelledby="cases-title">
+    <h2 id="cases-title" class="sr-only">Talent case studies</h2>
+    <div class="wrap cases">
+      {cases.map((c) => <CaseCard study={c} full />)}
+    </div>
+  </section>
+
+  <section class="section" aria-label="Client testimonial">
+    <div class="wrap">
+      <figure class="quote">
+        <blockquote>{quotes.usf.body}</blockquote>
+        <figcaption><strong>{quotes.usf.name}</strong>{quotes.usf.role}</figcaption>
+      </figure>
+    </div>
+  </section>
+</Base>

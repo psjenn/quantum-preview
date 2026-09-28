@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
+import { revenue } from '../data/pages';
+import { photo } from '../lib/images';
+---
+
+<Base title="Revenue Solutions" description={revenue.lede} cta={{ title: 'Let’s find the revenue you’re leaving on the table.', lead: ['partnerships', 'sponsorship', 'strategy'] }}>
+  <PageHero title="Revenue Solutions" lede={revenue.lede}>
+    <div class="actions">
+      <a class="btn btn--primary" href="/contact?topic=partnerships">Explore partnership opportunities</a>
+      <a class="btn btn--ghost" href="/contact?topic=sponsorship">Request a sponsorship consultation</a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-label="What we do">
+    <div class="wrap">
+      <div class="blocks">
+        {revenue.blocks.map((b) => <div><h2>{b.title}</h2><p>{b.body}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="prem-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="prem-title" class="bar h-mid">Every premium space at Geodis Park, sold out</h2>
+        <p class="lede">All of it sold before the stadium opened, setting the MLS record for premium seating revenue.</p>
+      </div>
+      <ul class="gallery">
+        {revenue.premium.map(([p, name]) => (
+          <li><Photo src={photo(p)} alt={`${name} at Geodis Park, marked sold out`} widths={[360, 720]} sizes="(max-width: 48rem) 50vw, 25vw" /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>

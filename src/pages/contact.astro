@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { Image } from 'astro:assets';
+import { intents, site, principals } from '../data/site';
+import { team } from '../lib/images';
+---
+
+<Base title="Work with us" description="Start a conversation with Quantum Sports + Entertainment Group." cta={false}>
+  <PageHero title="Work with us" lede="Tell us what you’re working on and we’ll set up a conversation with the right principal." />
+
+  <section class="section" aria-label="Contact form">
+    <div class="wrap split">
+      <form class="form" data-contact data-endpoint={site.formEndpoint} novalidate>
+        <fieldset>
+          <legend>What can we help with?</legend>
+          <div class="topics">
+            {intents.map((i, n) => (
+              <label><input type="radio" name="topic" value={i.id} checked={n === 0} />{i.label}</label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="form__row">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required aria-describedby="f-status" /></div>
+          <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="f-status" /></div>
+        </div>
+        <div class="field"><label for="f-org">Organization <span class="opt">(optional)</span></label><input id="f-org" name="organization" autocomplete="organization" /></div>
+        <div class="field"><label for="f-msg">What’s going on? <span class="opt">(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
+        <p class="form__status" id="f-status" role="status" hidden data-status></p>
+        <div><button class="btn btn--primary" type="submit">Send message</button></div>
+      </form>
+
+      <div>
+        <h2 class="h-mid bar" style="font-size:var(--step-2)">You’ll hear from one of us</h2>
+        <ul class="replies">
+          {principals.map((p) => (
+            <li>
+              <Image src={team(p.photo)} alt="" width={128} />
+              <div><strong>{p.name}</strong><span>{p.role}</span></div>
+            </li>
+          ))}
+        </ul>
+        <p class="muted" style="margin-top:2rem">{site.founded}</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>('[data-contact]');
+    const status = form?.querySelector<HTMLElement>('[data-status]');
+
+    const topic = new URLSearchParams(location.search).get('topic');
+    const pick = topic && form?.querySelector<HTMLInputElement>(`input[name="topic"][value="${CSS.escape(topic)}"]`);
+    if (pick) pick.checked = true;
+
+    const say = (msg: string) => {
+      if (!status) return;
+      status.textContent = msg;
+      status.hidden = false;
+    };
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = form.querySelector<HTMLInputElement>('#f-name')!;
+      const email = form.querySelector<HTMLInputElement>('#f-email')!;
+      const invalid = (field: HTMLInputElement, msg: string) => {
+        field.setAttribute('aria-invalid', 'true');
+        say(msg);
+        field.focus();
+      };
+      name.removeAttribute('aria-invalid');
+      email.removeAttribute('aria-invalid');
+      if (!name.value.trim()) return invalid(name, 'Add your name so we know who to reply to.');
+      if (!email.validity.valid || !email.value) return invalid(email, 'Add a work email we can reply to.');
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        say('This form isn’t connected yet. It will send to Quantum once the site launches.');
+        return;
+      }
+      const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } }).catch(() => null);
+      if (res?.ok) {
+        form.reset();
+        say('Message sent. A Quantum principal will be in touch.');
+      } else {
+        say('Your message didn’t send. Check your connection and try again.');
+      }
+    });
+  </script>
+</Base>

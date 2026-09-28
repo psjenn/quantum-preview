@@ -1,0 +1,19 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/services", "destination": "/", "permanent": true },
+    { "source": "/enterprise-solutions", "destination": "/revenue-solutions", "permanent": true },
+    { "source": "/client-representation-1", "destination": "/revenue-solutions", "permanent": true },
+    { "source": "/talent-management", "destination": "/talent", "permanent": true },
+    { "source": "/training", "destination": "/talent", "permanent": true },
+    { "source": "/future-openings", "destination": "/advisory", "permanent": true },
+    { "source": "/meet-the-team", "destination": "/about", "permanent": true },
+    { "source": "/case-studies", "destination": "/work", "permanent": true },
+    { "source": "/conversica", "destination": "/sixth-man", "permanent": true },
+    { "source": "/news-conversica", "destination": "/sixth-man", "permanent": true },
+    { "source": "/in-the-news-1", "destination": "/about", "permanent": false },
+    { "source": "/news-:slug", "destination": "/about", "permanent": false },
+    { "source": "/search", "destination": "/", "permanent": true }
+  ]
+}

@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { sixthMan } from '../data/pages';
+import lockup from '../assets/brand/sixth-man-white.png';
+---
+
+<Base title="Sixth Man" description={sixthMan.description} cta={{ title: 'See Sixth Man on your own fan data.', body: 'We’ll walk you through what it would find in your database and what it would do next.', lead: ['strategy'] }}>
+  <section class="hero hero--page">
+    <canvas class="hero__field" data-field="hero" aria-hidden="true"></canvas>
+    <div class="wrap hero__in">
+      <h1 class="sr-only">Sixth Man</h1>
+      <Image src={lockup} alt="Sixth Man by Purveyor Sports" class="sixth__lockup" widths={[420, 840]} sizes="26rem" loading="eager" />
+      <p class="hero__sub">{sixthMan.standfirst}</p>
+      <p class="lede">{sixthMan.description}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/contact?topic=strategy">Book a Sixth Man demo</a>
+        <a class="btn btn--ghost" href={sixthMan.purveyorUrl} rel="noopener">More at Purveyor Sports</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sm-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="sm-title" class="bar h-mid">{sixthMan.lede}</h2>
+        <p class="lede">Most AI sales tools come out of generic B2B pipelines. They book meetings. Sixth Man books revenue.</p>
+      </div>
+      <div class="blocks">
+        {sixthMan.points.map((p) => (
+          <div><h3>{p.title}</h3><p>{p.body}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--deep" aria-labelledby="why-title">
+    <div class="wrap split">
+      <h2 id="why-title" class="bar h-mid">Operators who know what a rep’s day looks like</h2>
+      <div>
+        <p class="lede">{sixthMan.partner}</p>
+        <p class="muted">Quantum’s principals have run ticketing and partnership sales for clubs across MLS, the NFL, and NWSL. We help your team put Sixth Man to work on the revenue that matters most to you, from season ticket renewals to premium upsells.</p>
+      </div>
+    </div>
+  </section>
+</Base>

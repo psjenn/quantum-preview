@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { Image } from 'astro:assets';
+import sixthMark from '../assets/brand/sixth-man-mark.png';
+import Charts from '../components/Charts.astro';
+import LogoWall from '../components/LogoWall.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { hero, facts, services, quotes, principals, caseStudies } from '../data/site';
+import { photo, team } from '../lib/images';
+
+const featured = caseStudies.filter((c) => ['nashville-sc', 'las-vegas-lights', 'houston-dynamo'].includes(c.slug));
+---
+
+<Base>
+  <section class="hero">
+    <canvas class="hero__field" data-field="hero" aria-hidden="true"></canvas>
+    <div class="wrap hero__in">
+      <h1>{hero.title}</h1>
+      <p class="hero__sub">{hero.sub}</p>
+      <p class="hero__note">{hero.note}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/contact">Work with us</a>
+        <a class="btn btn--ghost" href="/work">View our work</a>
+      </div>
+      <div class="hero__facts">
+        {facts.map((f) => (
+          <div><span class="figure">{f.value}</span><span>{f.label}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="clients-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="clients-title" class="bar h-mid">From MLS expansion clubs to the World Cup</h2>
+        <p class="lede">A few of the teams and properties Quantum’s principals have worked with across professional and college sports.</p>
+      </div>
+      <LogoWall />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="svc-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="svc-title" class="bar">What we do</h2>
+        <p class="lede">Building revenue, partnerships, and growth for sports and entertainment brands.</p>
+      </div>
+      <ul class="svc">
+        {services.map((s) => (
+          <li>
+            <div class="svc__row">
+              {s.photo ? (
+                <span class="svc__media"><Photo src={photo(s.photo)} alt="" widths={[400, 800]} sizes="(max-width: 52rem) 100vw, 20rem" /></span>
+              ) : (
+                <span class="svc__media svc__media--mark"><Image src={sixthMark} alt="" width={360} /></span>
+              )}
+              <div class="svc__body">
+                <h3><a class="svc__link" href={`/${s.slug}`}>{s.name}</a></h3>
+                <p>{s.line}</p>
+                <ul class="svc__list">{s.items.map((i) => <li>{i}</li>)}</ul>
+              </div>
+              <span class="svc__go" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--deep" aria-labelledby="proof-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="proof-title" class="bar">Operators with a scoreboard</h2>
+      </div>
+      <Charts />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="work-title" class="bar">Recent work</h2>
+      </div>
+      <div class="cases">
+        {featured.map((c) => <CaseCard study={c} />)}
+      </div>
+      <p style="margin-top:2rem"><a class="link" href="/work">See all case studies</a></p>
+    </div>
+  </section>
+
+  <section class="section section--deep" aria-label="What clients say">
+    <div class="wrap">
+      <figure class="quote">
+        <blockquote>{quotes.louisville.body}</blockquote>
+        <figcaption><strong>{quotes.louisville.name}</strong>{quotes.louisville.role}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="lead-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="lead-title" class="bar">Led by people who ran the building</h2>
+        <p class="lede">Quantum’s principals have held the jobs our clients hold.</p>
+      </div>
+      <div class="people">
+        {principals.map((p) => (
+          <article class="person">
+            <div class="person__photo"><Photo src={team(p.photo)} alt="" widths={[240, 480]} sizes="15rem" /></div>
+            <div>
+              <h3>{p.name}</h3>
+              <p class="person__role">{p.role}</p>
+              <p>{p.bio.split('. ')[0]}.</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p style="margin-top:2.5rem"><a class="link" href="/about">Meet the team and advisory board</a></p>
+    </div>
+  </section>
+</Base>

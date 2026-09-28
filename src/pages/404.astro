@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { services } from '../data/site';
+---
+
+<Base title="Page not found" description="Page not found." cta={false}>
+  <PageHero title="Page not found.">
+    <div class="actions">
+      <a class="btn btn--primary" href="/">Go to the homepage</a>
+      <a class="btn btn--ghost" href="/contact">Contact us</a>
+    </div>
+  </PageHero>
+  <section class="section" aria-label="Where to go next">
+    <div class="wrap">
+      <ul class="blocks">
+        {services.map((s) => <li><h2><a class="link" href={`/${s.slug}`}>{s.name}</a></h2></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
