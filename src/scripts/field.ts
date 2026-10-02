@@ -65,10 +65,10 @@ function mount(canvas: HTMLCanvasElement) {
         const r = maxR * k * fade;
         if (r < 0.35) continue;
         const m = mode === 'hero' ? u : v;
-        const [from, to, t] = m < SPLIT ? [BLUE, CYAN, m / SPLIT] : [CYAN, GREEN, (m - SPLIT) / (1 - SPLIT)];
-        const cr = Math.round(lerp(from[0], to[0], t));
-        const cg = Math.round(lerp(from[1], to[1], t));
-        const cb = Math.round(lerp(from[2], to[2], t));
+        const [from, to, s] = m < SPLIT ? [BLUE, CYAN, m / SPLIT] : [CYAN, GREEN, (m - SPLIT) / (1 - SPLIT)];
+        const cr = Math.round(lerp(from[0], to[0], s));
+        const cg = Math.round(lerp(from[1], to[1], s));
+        const cb = Math.round(lerp(from[2], to[2], s));
         ctx.fillStyle = `rgba(${cr},${cg},${cb},${0.25 + 0.75 * k})`;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);
