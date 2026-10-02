@@ -6,6 +6,12 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 const CRUISE = 2.5;
 const RUN = 4.5;
 
+// Brand gradient: cobalt → cyan → Quantum green, from the Q mark.
+const BLUE = [45, 92, 255];
+const CYAN = [25, 198, 217];
+const GREEN = [176, 248, 85];
+const SPLIT = 0.8;
+
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
@@ -59,9 +65,10 @@ function mount(canvas: HTMLCanvasElement) {
         const r = maxR * k * fade;
         if (r < 0.35) continue;
         const m = mode === 'hero' ? u : v;
-        const cr = Math.round(lerp(45, 25, m));
-        const cg = Math.round(lerp(92, 198, m));
-        const cb = Math.round(lerp(255, 217, m));
+        const [from, to, t] = m < SPLIT ? [BLUE, CYAN, m / SPLIT] : [CYAN, GREEN, (m - SPLIT) / (1 - SPLIT)];
+        const cr = Math.round(lerp(from[0], to[0], t));
+        const cg = Math.round(lerp(from[1], to[1], t));
+        const cb = Math.round(lerp(from[2], to[2], t));
         ctx.fillStyle = `rgba(${cr},${cg},${cb},${0.25 + 0.75 * k})`;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);

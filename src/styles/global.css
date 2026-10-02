@@ -219,6 +219,8 @@ h4 { font-size: var(--step-1); font-weight: 650; margin: 0; line-height: 1.25; }
 .roll__set { display: flex; align-items: center; gap: clamp(2.5rem, 5vw, 4.5rem); padding-right: clamp(2.5rem, 5vw, 4.5rem); }
 .roll__set li { flex: none; display: grid; place-items: center; }
 .roll__set img { height: clamp(2.75rem, 4.5vw, 4rem); width: auto; max-width: 8rem; object-fit: contain; }
+/* Wide marks read heavier than crests at the same height */
+.roll__set img[data-logo="seattle-seahawks"] { max-width: 6rem; }
 
 .roll:hover .roll__track,
 .roll[data-paused] .roll__track { animation-play-state: paused; }

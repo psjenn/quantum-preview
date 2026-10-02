@@ -7,10 +7,11 @@ import { quotes, caseStudies } from '../data/site';
 const cases = caseStudies.filter((c) => c.kind === 'Talent');
 ---
 
-<Base title="Talent" description={talent.lede} cta={{ title: 'Your next hire should already know the job.', lead: ['talent', 'strategy'] }}>
+<Base title="Talent" description={talent.lede} cta={{ title: 'Your next hire should already know the job.', lead: ['talent', 'training', 'strategy'] }}>
   <PageHero title="Talent" lede={talent.lede}>
     <div class="actions">
       <a class="btn btn--primary" href="/contact?topic=talent">Hire executive talent</a>
+      <a class="btn btn--primary" href="/contact?topic=training">Book team training</a>
     </div>
   </PageHero>
 

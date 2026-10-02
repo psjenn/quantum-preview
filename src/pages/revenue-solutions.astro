@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import PageHero from '../components/PageHero.astro';
 import { revenue } from '../data/pages';
+import { stadiums } from '../data/site';
 import { photo } from '../lib/images';
 ---
 
@@ -19,6 +20,37 @@ import { photo } from '../lib/images';
       <div class="blocks">
         {revenue.blocks.map((b) => <div><h2>{b.title}</h2><p>{b.body}</p></div>)}
       </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="growth-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="growth-title" class="bar h-mid">Growth + expansion</h2>
+        <p class="lede">{revenue.growth.lede}</p>
+      </div>
+      <div class="blocks">
+        {revenue.growth.blocks.map((b) => <div><h3>{b.title}</h3><p>{b.body}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="stad-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="stad-title" class="bar h-mid">Four MLS stadium openings</h2>
+        <p class="lede">Part of eleven stadium and arena projects, over $1 billion in all.</p>
+      </div>
+      <ol class="timeline">
+        {stadiums.map((s) => (
+          <li>
+            <span class="figure">{s.year}</span>
+            <Photo src={photo(s.photo)} alt={s.venue} widths={[400, 700]} sizes="(max-width: 30rem) 100vw, (max-width: 56rem) 50vw, 25vw" />
+            <h3>{s.venue}</h3>
+            <p>{s.team}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 

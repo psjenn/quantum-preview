@@ -1,9 +1,9 @@
 export const site = {
   name: 'Quantum Sports + Entertainment Group',
-  short: 'Quantum SEG',
+  short: 'Quantum',
   title: 'Quantum Sports + Entertainment Group | Operators, not advisors',
   description:
-    'Quantum SEG helps teams, venues, universities, and brands maximize commercial growth through partnerships, strategy, and executive leadership.',
+    'Quantum helps teams, venues, universities, and brands maximize commercial growth through partnerships, strategy, and executive leadership.',
   url: 'https://quantumseg.com',
   founded: 'Founded in 2022 in Orlando, Florida.',
   motto: 'Take pride in your work, do the right thing and treat people with respect. That’s the Quantum way.',
@@ -20,7 +20,6 @@ export const nav = [
   { href: '/revenue-solutions', label: 'Revenue' },
   { href: '/sixth-man', label: 'Sixth Man' },
   { href: '/talent', label: 'Talent' },
-  { href: '/advisory', label: 'Advisory' },
   { href: '/work', label: 'Our work' },
   { href: '/about', label: 'About' },
 ] as const;
@@ -30,6 +29,8 @@ export const intents = [
   { id: 'partnerships', label: 'Explore partnership opportunities', desc: 'Naming rights, jersey deals, and category partnerships.' },
   { id: 'sponsorship', label: 'Request a sponsorship consultation', desc: 'Brand-side strategy, deal evaluation, and negotiation.' },
   { id: 'talent', label: 'Hire executive talent', desc: 'C-suite and revenue leadership searches, start to finish.' },
+  { id: 'training', label: 'Book team training', desc: 'Leadership development and sales + service training for your staff.' },
+  { id: 'sixth-man', label: 'See Sixth Man in action', desc: 'A demo of the autonomous revenue teammate, built on your fan data.' },
   { id: 'insights', label: 'Download industry insights', desc: 'Our read on where sports revenue is heading.' },
 ] as const;
 
@@ -37,7 +38,7 @@ export type IntentId = (typeof intents)[number]['id'];
 
 export const hero = {
   title: 'Operators, not advisors.',
-  sub: 'Revenue strategy + talent solutions for modern sports organizations.',
+  sub: 'Revenue solutions + talent management for modern sports organizations.',
   note: '25+ years inside teams, not just consultants.',
 } as const;
 
@@ -80,8 +81,8 @@ export const services: Service[] = [
     slug: 'revenue-solutions',
     photo: 'fill-the-bowl',
     name: 'Revenue Solutions',
-    line: 'Naming rights, jersey partnerships, sponsorship strategy, and ticket and premium sales, run by people who have closed them.',
-    items: ['Naming rights + jersey partnerships', 'Sponsorship strategy', 'Ticket sales', 'Premium sales'],
+    line: 'Naming rights, jersey partnerships, ticket and premium sales, expansion teams, and new stadiums, run by people who have done it.',
+    items: ['Naming rights + jersey partnerships', 'Sponsorship strategy', 'Ticket + premium sales', 'Expansion + stadium development'],
   },
   {
     slug: 'sixth-man',
@@ -96,19 +97,12 @@ export const services: Service[] = [
     line: 'Great people make great organizations. We find them, develop them, and help them succeed in the seat.',
     items: ['C-suite + revenue leaders', 'Leadership development', 'Sales + service training'],
   },
-  {
-    slug: 'advisory',
-    photo: 'geodis-park',
-    name: 'Advisory Services',
-    line: 'Expansion teams, new stadiums, and commercial strategy, from the people who have opened them.',
-    items: ['Expansion teams', 'Stadium development', 'Commercial strategy'],
-  },
 ];
 
 export const stadiums = [
   { year: 2010, venue: 'Subaru Park', team: 'Philadelphia Union', photo: 'subaru-park' },
   { year: 2017, venue: 'Inter&Co Stadium', team: 'Orlando City SC + Orlando Pride', photo: 'interco-stadium' },
-  { year: 2020, venue: 'Chase Stadium', team: 'Inter Miami CF', photo: 'chase-stadium' },
+  { year: 2020, venue: 'Inter Miami CF Stadium', team: 'Inter Miami CF', photo: 'chase-stadium' },
   { year: 2022, venue: 'Geodis Park', team: 'Nashville SC', photo: 'geodis-park' },
 ] as const;
 
@@ -145,24 +139,32 @@ export const principals: Principal[] = [
     name: 'Chris Gallagher',
     role: 'President',
     photo: 'chris-gallagher',
-    bio: 'Chris started in ticket sales with the Panthers, Yankees, Browns, and Dolphins, then spent a decade opening MLS clubs. He sold out Orlando City’s first match and led Nashville SC into Geodis Park.',
-    highlights: ['2015 MLS Ticket Sales Executive of the Year', '2022 VenuesNow All-Star', 'Executive in Residence, UCF DeVos Sport Business Management'],
+    bio: 'Chris, a 25+ year industry veteran, has worked for clubs in the NFL, MLB, NHL, MLS, and NWSL, setting attendance and revenue records along the way. Prior to launching Quantum, he was the Chief Revenue Officer for Orlando City SC.',
+    highlights: [
+      'MLS Ticket Sales Executive of the Year',
+      'VenuesNow All-Star',
+      'National Advisory Board Member, University of Central Florida DeVos Sport Business Management Program',
+    ],
   },
   {
     slug: 'rob-parker',
     name: 'Rob Parker',
     role: 'Chief Commercial Officer',
     photo: 'rob-parker',
-    bio: 'Rob built the partnership businesses at the Philadelphia Union and Orlando City SC from scratch. He has also led corporate partnerships for MLS and revenue for Haslam Sports Group.',
+    bio: 'Rob built the partnership platforms at two MLS expansion clubs from the ground up, including founding jersey partnerships, stadium naming rights, and long-term commercial platforms for the Philadelphia Union and Orlando City SC. He has also led corporate partnerships for MLS and revenue for Haslam Sports Group.',
     highlights: ['MLS’s two longest-running jersey partnerships', 'MLS Corporate Sales Executive of the Year', 'MLS Sponsorship Activation Award'],
   },
   {
     slug: 'dennis-sprenkle',
     name: 'Dennis Sprenkle',
-    role: 'Chief Administrative Officer',
+    role: 'Chief Talent Officer',
     photo: 'dennis-sprenkle',
-    bio: 'Dennis brings two decades of human capital management to sports. He ran HR for Orlando City SC and built Inter Miami CF’s people functions before its first match.',
-    highlights: ['Director of Workforce + HR, FIFA World Cup 2026'],
+    bio: 'Dennis brings two decades of human capital management to sports. He has led the people + talent functions for Orlando City SC, Orlando Pride, Inter Miami CF, and FIFA World Cup 2026.',
+    highlights: [
+      'Led Workforce + HR for the largest sporting event in history, FIFA World Cup 2026',
+      'Talent experience in commercial + sporting',
+      'Multiple recipient, Best Places to Work',
+    ],
   },
 ];
 
@@ -225,7 +227,6 @@ export const clientGroups: ClientGroup[] = [
     league: 'MLB, NBA, NHL + more',
     teams: [
       ['new-york-yankees', 'New York Yankees'],
-      ['orlando-magic', 'Orlando Magic'],
       ['tampa-bay-lightning', 'Tampa Bay Lightning'],
       ['florida-panthers', 'Florida Panthers'],
       ['orlando-valkyries', 'Orlando Valkyries'],
@@ -261,7 +262,7 @@ export interface CaseStudy {
   slug: string;
   client: string;
   logo: string;
-  kind: 'Revenue' | 'Talent' | 'Advisory' | 'Partnerships';
+  kind: 'Revenue' | 'Talent' | 'Partnerships';
   title: string;
   summary: string;
   results: readonly string[];
@@ -272,14 +273,23 @@ export const caseStudies: CaseStudy[] = [
     slug: 'nashville-sc',
     client: 'Nashville SC + Geodis Park',
     logo: 'nashville-sc',
-    kind: 'Advisory',
+    kind: 'Revenue',
     title: 'Opening the largest soccer-specific stadium in North America',
-    summary: 'Chris Gallagher led the commercial opening of Geodis Park, from preview center to naming rights.',
+    summary: 'Chris Gallagher led the commercial opening of Geodis Park, from preview center to premium seating sales.',
     results: [
       '23,000 season tickets sold',
       '100% of premium seating sold out, an MLS revenue record',
       '50%+ of season tickets sold digitally, 3x the industry average',
     ],
+  },
+  {
+    slug: 'louisville-city',
+    client: 'Louisville City FC + Lynn Family Stadium',
+    logo: 'louisville-city',
+    kind: 'Revenue',
+    title: 'Record-breaking crowds',
+    summary: 'Ticket sales strategy that filled Lynn Family Stadium to a new club attendance record.',
+    results: ['14,673 fans on August 13, 2022, the Lynn Family Stadium attendance record'],
   },
   {
     slug: 'las-vegas-lights',
@@ -296,8 +306,26 @@ export const caseStudies: CaseStudy[] = [
     logo: 'houston-dynamo',
     kind: 'Talent',
     title: 'Hiring a Chief Revenue Officer',
-    summary: 'A nationwide search that brought Nicolò Zini to Houston as CRO in January 2025.',
+    summary: 'A nationwide search that brought Nicolò Zini to Houston as CRO in January 2026.',
     results: [],
+  },
+  {
+    slug: 'portland-timbers',
+    client: 'Portland Timbers',
+    logo: 'portland-timbers',
+    kind: 'Talent',
+    title: 'Leadership development experience',
+    summary: 'Virtual and in-person management training for the Timbers, built on real input from their own management team.',
+    results: ['Directional management', 'Leading change', 'Business planning'],
+  },
+  {
+    slug: 'louisville-training',
+    client: 'Louisville City FC',
+    logo: 'louisville-city',
+    kind: 'Talent',
+    title: 'Ticket sales + leadership training',
+    summary: 'Interactive sessions that gave the club’s staff practical, repeatable tools for leadership and ticket sales, tailored to their environment.',
+    results: ['Prospecting + lead generation', 'Handling objections + asking for the sale', 'Accountability + individual performance planning'],
   },
   {
     slug: 'jacksonville-jaguars',

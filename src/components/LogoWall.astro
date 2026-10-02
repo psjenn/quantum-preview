@@ -15,13 +15,13 @@ const rows = [mixed.filter((_, i) => i % 2 === 0), mixed.filter((_, i) => i % 2 
       <div class="roll__track">
         <ul class="roll__set" aria-label={r === 0 ? 'Selected clients' : undefined}>
           {row.map(([slug, name]) => (
-            <li><Image src={colorLogo(slug)} alt={name} title={name} height={144} /></li>
+            <li><Image src={colorLogo(slug)} alt={name} title={name} height={144} data-logo={slug} /></li>
           ))}
         </ul>
         {/* Duplicate set for a seamless loop */}
         <ul class="roll__set" aria-hidden="true">
           {row.map(([slug]) => (
-            <li><Image src={colorLogo(slug)} alt="" height={144} /></li>
+            <li><Image src={colorLogo(slug)} alt="" height={144} data-logo={slug} /></li>
           ))}
         </ul>
       </div>

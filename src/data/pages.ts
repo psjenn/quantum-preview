@@ -7,6 +7,14 @@ export const revenue = {
     { title: 'Ticket sales', body: 'Pricing, group sales, and digital campaigns built to sell more seats at better prices.' },
     { title: 'Premium sales', body: 'Suites, clubs, and experiential spaces, sold and renewed.' },
   ],
+  growth: {
+    lede: 'We build and monetize the next generation of sports properties: expansion teams, new stadiums, and the commercial plan that pays for them.',
+    blocks: [
+      { title: 'Expansion teams', body: 'Orlando City SC, Nashville SC, and Inter Miami CF all launched with Quantum principals on staff.' },
+      { title: 'Stadium development', body: 'Stadium construction solutions, preview centers, naming rights, access control, and concessions, planned alongside the building.' },
+      { title: 'Commercial strategy', body: 'An outside read on the whole business, or an extension of your sales and marketing team.' },
+    ],
+  },
   premium: [
     ['premium-suites', 'Private Suites'],
     ['premium-captains', 'Captain’s Club'],
@@ -37,22 +45,13 @@ export const talent = {
     { title: 'Leadership development', body: 'Management training built from your own managers’ input, virtual or in person.' },
     { title: 'Sales + service training', body: 'Practical, repeatable tools for ticket sales and service teams.' },
   ],
-  placements: 'Recent senior placements include FC Cincinnati, NJ/NY Gotham FC, Arnold Palmer Group, Fortress, and Houston Dynamo FC.',
-} as const;
-
-export const advisory = {
-  lede: 'We build and monetize the next generation of sports properties: expansion teams, new stadiums, and the commercial plan that pays for them.',
-  blocks: [
-    { title: 'Expansion teams', body: 'Orlando City SC, Nashville SC, and Inter Miami CF all launched with Quantum principals on staff.' },
-    { title: 'Stadium development', body: 'Preview centers, naming rights, access control, and concessions, planned alongside the building.' },
-    { title: 'Commercial strategy', body: 'An outside read on the whole business, or an extension of your sales and marketing team.' },
-  ],
+  placements: 'Senior placements include FC Cincinnati, NJ/NY Gotham FC, Arnold Palmer Group, Seattle Seahawks, Fortress, and Houston Dynamo FC.',
 } as const;
 
 export const about = {
-  intro: 'Quantum SEG helps teams, venues, universities, and brands maximize commercial growth through partnerships, strategy, and executive leadership.',
+  intro: 'Quantum helps teams, venues, universities, and brands maximize commercial growth through partnerships, strategy, and executive leadership.',
   body: [
-    'We’ve lived the sports and entertainment business for over 25 years, running ticketing, partnerships, and people for clubs across MLS, the NFL, NWSL, USL, and beyond.',
+    'We’ve lived the sports and entertainment business for over 25 years, running ticketing, partnerships, and people for clubs across MLS, the NFL, MLB, the NHL, NWSL, USL, and beyond.',
     'Backed by an advisory board of industry all-stars, we bring the right blend of knowledge, insight, and action to the industry’s most pressing issues.',
   ],
 } as const;
