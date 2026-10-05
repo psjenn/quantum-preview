@@ -266,6 +266,8 @@ export interface CaseStudy {
   title: string;
   summary: string;
   results: readonly string[];
+  /** Show results as topic pills rather than bullets. Defaults to true for Talent. */
+  topics?: boolean;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -307,7 +309,8 @@ export const caseStudies: CaseStudy[] = [
     kind: 'Talent',
     title: 'Hiring a Chief Revenue Officer',
     summary: 'A nationwide search that brought Nicolò Zini to Houston as CRO in January 2026.',
-    results: [],
+    // TODO: placeholder topics from the deck's Talent Management slide; confirm with Quantum
+    results: ['Executive search', 'Candidate vetting', 'Onboarding support'],
   },
   {
     slug: 'portland-timbers',
@@ -325,7 +328,7 @@ export const caseStudies: CaseStudy[] = [
     kind: 'Talent',
     title: 'Ticket sales + leadership training',
     summary: 'Interactive sessions that gave the club’s staff practical, repeatable tools for leadership and ticket sales, tailored to their environment.',
-    results: ['Prospecting + lead generation', 'Handling objections + asking for the sale', 'Accountability + individual performance planning'],
+    results: ['Prospecting', 'Handling objections', 'Asking for the sale'],
   },
   {
     slug: 'jacksonville-jaguars',
@@ -335,7 +338,8 @@ export const caseStudies: CaseStudy[] = [
     // TODO: scope and results from Quantum
     title: 'Staffing the Stadium of the Future',
     summary: 'Building the ticket sales team for the Jaguars’ redeveloped stadium.',
-    results: [],
+    // TODO: placeholder topics from the deck's Enterprise Solutions slide; confirm with Quantum
+    results: ['Staffing model', 'Recruitment', 'Hiring + training'],
   },
   {
     slug: 'hartford-athletic',
@@ -353,6 +357,8 @@ export const caseStudies: CaseStudy[] = [
     kind: 'Partnerships',
     title: 'Jersey and naming rights partnerships',
     summary: 'Stadium naming rights for both clubs, and MLS’s two longest-running jersey partnerships.',
-    results: [],
+    // TODO: placeholder topics from the deck's Partnership Success slide; confirm with Quantum
+    results: ['Jersey partnerships', 'Naming rights', 'Partnership activation'],
+    topics: true,
   },
 ];

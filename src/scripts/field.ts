@@ -12,6 +12,18 @@ const CYAN = [25, 198, 217];
 const GREEN = [176, 248, 85];
 const SPLIT = 0.8;
 
+// Dots are batched into one path per (colour, alpha) step, so a frame is a few
+// hundred fills instead of one per dot. Steps are too fine to see.
+const HUES = 24;
+const ALPHAS = 12;
+const STYLES: string[] = [];
+for (let c = 0; c < HUES; c++) {
+  const m = c / (HUES - 1);
+  const [from, to, s] = m < SPLIT ? [BLUE, CYAN, m / SPLIT] : [CYAN, GREEN, (m - SPLIT) / (1 - SPLIT)];
+  const rgb = from.map((f, i) => Math.round(lerp(f, to[i], s))).join(',');
+  for (let a = 0; a < ALPHAS; a++) STYLES.push(`rgba(${rgb},${(0.25 + (0.75 * a) / (ALPHAS - 1)).toFixed(3)})`);
+}
+
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
@@ -28,6 +40,21 @@ function mount(canvas: HTMLCanvasElement) {
   let elapsed = 0;
   let clock = 0;
   let last = 0;
+  let gap = 15;
+
+  // Per-dot data that only changes on resize. Dots that can never reach
+  // visible size are dropped here rather than skipped every frame.
+  let n = 0;
+  let xs = new Float32Array(0);
+  let ys = new Float32Array(0);
+  let amp = new Float32Array(0);
+  let hue = new Uint8Array(0);
+  let row = new Uint16Array(0);
+  let rowWave = new Float32Array(0);
+  let rs = new Float32Array(0);
+  let bucket = new Uint16Array(0);
+  let order = new Uint32Array(0);
+  const counts = new Uint32Array(HUES * ALPHAS + 1);
 
   const size = () => {
     const r = canvas.getBoundingClientRect();
@@ -37,20 +64,25 @@ function mount(canvas: HTMLCanvasElement) {
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  };
 
-  const draw = (t: number) => {
-    ctx.clearRect(0, 0, w, h);
-    const gap = w < 640 ? 12 : 15;
+    gap = w < 640 ? 12 : 15;
     const maxR = gap * 0.46;
-    for (let y = gap / 2; y < h; y += gap) {
-      for (let x = gap / 2; x < w; x += gap) {
+    const cols = Math.max(0, Math.ceil((w - gap / 2) / gap));
+    const rows = Math.max(0, Math.ceil((h - gap / 2) / gap));
+    const cap = cols * rows;
+    xs = new Float32Array(cap);
+    ys = new Float32Array(cap);
+    amp = new Float32Array(cap);
+    hue = new Uint8Array(cap);
+    row = new Uint16Array(cap);
+    rowWave = new Float32Array(rows);
+    n = 0;
+    for (let j = 0; j < rows; j++) {
+      const y = gap / 2 + j * gap;
+      for (let i = 0; i < cols; i++) {
+        const x = gap / 2 + i * gap;
         const u = x / w;
         const v = y / h;
-        const wave =
-          Math.sin(x * 0.009 + t * 0.35 + Math.sin(y * 0.006 + t * 0.2) * 2.2) +
-          Math.cos(y * 0.013 - t * 0.28 + x * 0.003);
-        let k = (wave + 2) / 4;
         let fade: number;
         if (mode === 'hero') {
           const edge = w < 720 ? 0.05 : 0.38;
@@ -62,18 +94,65 @@ function mount(canvas: HTMLCanvasElement) {
           fade = Math.max(0, 1 - u / 0.45);
           fade = 0.55 * fade * fade * (3 - 2 * fade);
         }
-        const r = maxR * k * fade;
-        if (r < 0.35) continue;
+        if (maxR * fade < 0.35) continue;
         const m = mode === 'hero' ? u : v;
-        const [from, to, s] = m < SPLIT ? [BLUE, CYAN, m / SPLIT] : [CYAN, GREEN, (m - SPLIT) / (1 - SPLIT)];
-        const cr = Math.round(lerp(from[0], to[0], s));
-        const cg = Math.round(lerp(from[1], to[1], s));
-        const cb = Math.round(lerp(from[2], to[2], s));
-        ctx.fillStyle = `rgba(${cr},${cg},${cb},${0.25 + 0.75 * k})`;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
+        xs[n] = x;
+        ys[n] = y;
+        amp[n] = maxR * fade;
+        hue[n] = Math.round(Math.max(0, Math.min(1, m)) * (HUES - 1));
+        row[n] = j;
+        n++;
       }
+    }
+    rs = new Float32Array(n);
+    bucket = new Uint16Array(n);
+    order = new Uint32Array(n);
+  };
+
+  const draw = (t: number) => {
+    ctx.clearRect(0, 0, w, h);
+    for (let j = 0; j < rowWave.length; j++) {
+      const y = gap / 2 + j * gap;
+      rowWave[j] = Math.sin(y * 0.006 + t * 0.2) * 2.2;
+    }
+    const none = HUES * ALPHAS;
+    counts.fill(0);
+    for (let i = 0; i < n; i++) {
+      const x = xs[i];
+      const y = ys[i];
+      const wave = Math.sin(x * 0.009 + t * 0.35 + rowWave[row[i]]) + Math.cos(y * 0.013 - t * 0.28 + x * 0.003);
+      const k = (wave + 2) / 4;
+      const r = amp[i] * k;
+      rs[i] = r;
+      const b = r < 0.35 ? none : hue[i] * ALPHAS + Math.round(k * (ALPHAS - 1));
+      bucket[i] = b;
+      counts[b]++;
+    }
+    // Counting sort dots into their buckets.
+    let sum = 0;
+    for (let b = 0; b < none; b++) {
+      const c = counts[b];
+      counts[b] = sum;
+      sum += c;
+    }
+    for (let i = 0; i < n; i++) {
+      const b = bucket[i];
+      if (b !== none) order[counts[b]++] = i;
+    }
+    let start = 0;
+    for (let b = 0; b < none; b++) {
+      const end = counts[b];
+      if (end === start) continue;
+      ctx.fillStyle = STYLES[b];
+      ctx.beginPath();
+      for (let p = start; p < end; p++) {
+        const i = order[p];
+        const r = rs[i];
+        ctx.moveTo(xs[i] + r, ys[i]);
+        ctx.arc(xs[i], ys[i], r, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      start = end;
     }
   };
 

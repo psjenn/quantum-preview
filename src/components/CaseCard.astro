@@ -11,7 +11,7 @@ const { study: c, full = false } = Astro.props;
 const results = full ? c.results : c.results.slice(0, 3);
 ---
 
-<article class="case" id={full ? c.slug : undefined}>
+<article class:list={['case', { 'case--topics': c.topics ?? c.kind === 'Talent' }]} id={full ? c.slug : undefined}>
   <div class="case__top">
     <Image src={colorLogo(c.logo)} alt="" height={96} />
     <div>
