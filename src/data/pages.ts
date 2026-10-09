@@ -2,7 +2,7 @@
 export const revenue = {
   lede: 'We’ve sold naming rights, jersey fronts, suites, and season tickets from the team side. Now we bring that to your side of the table.',
   blocks: [
-    { title: 'Naming rights + jersey partnerships', body: 'Stadium naming rights for the Philadelphia Union and Orlando City SC, and MLS’s two longest-running jersey partnerships.' },
+    { title: 'Naming rights + jersey partnerships', body: 'Stadium naming rights for the Philadelphia Union and Orlando City SC, and two of MLS’s longest-running jersey partnerships.' },
     { title: 'Sponsorship strategy', body: 'Hundreds of millions in partnerships negotiated. We know what assets are worth and how to hit agreed KPIs.' },
     { title: 'Ticket sales', body: 'Pricing, group sales, and digital campaigns built to sell more seats at better prices.' },
     { title: 'Premium sales', body: 'Suites, clubs, and experiential spaces, sold and renewed.' },
@@ -10,7 +10,7 @@ export const revenue = {
   growth: {
     lede: 'We build and monetize the next generation of sports properties: expansion teams, new stadiums, and the commercial plan that pays for them.',
     blocks: [
-      { title: 'Expansion teams', body: 'Orlando City SC, Nashville SC, and Inter Miami CF all launched with Quantum principals on staff.' },
+      { title: 'Expansion teams', body: 'Orlando City SC, Nashville SC, and Inter Miami CF all launched with Quantum principals in senior roles.' },
       { title: 'Stadium development', body: 'Stadium construction solutions, preview centers, naming rights, access control, and concessions, planned alongside the building.' },
       { title: 'Commercial strategy', body: 'An outside read on the whole business, or an extension of your sales and marketing team.' },
     ],
@@ -25,7 +25,7 @@ export const revenue = {
 
 export const sixthMan = {
   standfirst: 'The autonomous revenue teammate for sports.',
-  lede: 'Built on your Fan 360 data and pointed at revenue.',
+  lede: 'Built on your Unified Fan Profile and pointed at revenue.',
   description: 'Sixth Man reads your fan data, decides the next best action, and contacts the fan without waiting for a rep.',
   partner: 'Quantum brings Sixth Man to clubs, venues, and leagues in partnership with Purveyor Sports, the data and AI company that built it.',
   points: [

@@ -88,7 +88,7 @@ export const services: Service[] = [
     slug: 'sixth-man',
     name: 'Sixth Man',
     line: 'The autonomous revenue teammate for sports. It reads your fan data, decides the next best action, and reaches the fan without waiting for a rep.',
-    items: ['Built on your Fan 360 data', 'Sports-specific playbooks', 'Measured on revenue, not meetings'],
+    items: ['Built on your Unified Fan Profile', 'Sports-specific playbooks', 'Measured on revenue, not meetings'],
   },
   {
     slug: 'talent',
@@ -142,6 +142,7 @@ export const principals: Principal[] = [
     bio: 'Chris, a 25+ year industry veteran, has worked for clubs in the NFL, MLB, NHL, MLS, and NWSL, setting attendance and revenue records along the way. Prior to launching Quantum, he was the Chief Revenue Officer for Orlando City SC.',
     highlights: [
       'MLS Ticket Sales Executive of the Year',
+      'Sports Business Journal’s Ticketing Industry Power Player',
       'VenuesNow All-Star',
       'National Advisory Board Member, University of Central Florida DeVos Sport Business Management Program',
     ],
@@ -152,7 +153,7 @@ export const principals: Principal[] = [
     role: 'Chief Commercial Officer',
     photo: 'rob-parker',
     bio: 'Rob built the partnership platforms at two MLS expansion clubs from the ground up, including founding jersey partnerships, stadium naming rights, and long-term commercial platforms for the Philadelphia Union and Orlando City SC. He has also led corporate partnerships for MLS and revenue for Haslam Sports Group.',
-    highlights: ['MLS’s two longest-running jersey partnerships', 'MLS Corporate Sales Executive of the Year', 'MLS Sponsorship Activation Award'],
+    highlights: ['Two of MLS’s longest-running jersey partnerships', 'MLS Corporate Sales Executive of the Year', 'MLS Sponsorship Activation Award'],
   },
   {
     slug: 'dennis-sprenkle',
@@ -335,11 +336,20 @@ export const caseStudies: CaseStudy[] = [
     client: 'Jacksonville Jaguars',
     logo: 'jacksonville-jaguars',
     kind: 'Talent',
-    // TODO: scope and results from Quantum
     title: 'Staffing the Stadium of the Future',
-    summary: 'Building the ticket sales team for the Jaguars’ redeveloped stadium.',
-    // TODO: placeholder topics from the deck's Enterprise Solutions slide; confirm with Quantum
-    results: ['Staffing model', 'Recruitment', 'Hiring + training'],
+    summary: 'Recruiting a ticket sales manager and sales reps for the Jaguars. We sourced and interviewed every candidate, then recommended the shortlist the club hired from.',
+    results: ['Recruitment'],
+  },
+  {
+    slug: 'mls-partnerships',
+    client: 'Orlando City SC + Philadelphia Union',
+    logo: 'philadelphia-union',
+    kind: 'Partnerships',
+    title: 'Jersey and naming rights partnerships',
+    summary: 'Stadium naming rights for both clubs, and two of MLS’s longest-running jersey partnerships.',
+    // TODO: placeholder topics from the deck's Partnership Success slide; confirm with Quantum
+    results: ['Jersey partnerships', 'Naming rights', 'Partnership activation'],
+    topics: true,
   },
   {
     slug: 'hartford-athletic',
@@ -349,16 +359,5 @@ export const caseStudies: CaseStudy[] = [
     title: 'Partnership sales consulting',
     summary: 'A six-month engagement with the USL club’s partnership team.',
     results: ['Partnership revenue up 25%'],
-  },
-  {
-    slug: 'mls-partnerships',
-    client: 'Orlando City SC + Philadelphia Union',
-    logo: 'philadelphia-union',
-    kind: 'Partnerships',
-    title: 'Jersey and naming rights partnerships',
-    summary: 'Stadium naming rights for both clubs, and MLS’s two longest-running jersey partnerships.',
-    // TODO: placeholder topics from the deck's Partnership Success slide; confirm with Quantum
-    results: ['Jersey partnerships', 'Naming rights', 'Partnership activation'],
-    topics: true,
   },
 ];
