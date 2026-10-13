@@ -8,8 +8,7 @@ const longest = Math.max(...clientGroups.map((g) => g.teams.length));
 for (let i = 0; i < longest; i++) for (const g of clientGroups) if (g.teams[i]) mixed.push(g.teams[i]);
 const rows = [mixed.filter((_, i) => i % 2 === 0), mixed.filter((_, i) => i % 2 === 1)];
 
-// Same height makes wide marks read much bigger than crests. Scale height by
-// aspect ratio so every logo covers roughly the same visual area.
+// Scale height by aspect ratio so wide logos don't dominate.
 const optical = (slug: string) => {
   const { width, height } = colorLogo(slug);
   const s = Math.min(1.12, Math.max(0.55, (width / height) ** -0.65));
@@ -46,13 +45,10 @@ const optical = (slug: string) => {
       btn.setAttribute('aria-pressed', String(paused));
       btn.textContent = paused ? 'Play' : 'Pause';
     });
-    // Stop compositing frames while the wall is off screen.
     new IntersectionObserver(([entry]) => {
       roll.toggleAttribute('data-offscreen', !entry.isIntersecting);
     }).observe(roll);
-    // Logos reach the viewport by sliding sideways, which native lazy-loading
-    // (Safari especially) doesn't notice, leaving blank stretches. Load the whole
-    // wall as soon as it nears the viewport vertically instead.
+    // Native lazy-loading misses logos that scroll in sideways (esp. Safari).
     const near = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;

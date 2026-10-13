@@ -2,18 +2,14 @@ type Mode = 'hero' | 'band';
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// Motion stops within 5s (WCAG 2.2.2).
 const CRUISE = 2.5;
 const RUN = 4.5;
 
-// Brand gradient: cobalt → cyan → Quantum green, from the Q mark.
 const BLUE = [45, 92, 255];
 const CYAN = [25, 198, 217];
 const GREEN = [176, 248, 85];
 const SPLIT = 0.8;
 
-// Dots are batched into one path per (colour, alpha) step, so a frame is a few
-// hundred fills instead of one per dot. Steps are too fine to see.
 const HUES = 24;
 const ALPHAS = 12;
 const STYLES: string[] = [];
@@ -42,8 +38,6 @@ function mount(canvas: HTMLCanvasElement) {
   let last = 0;
   let gap = 15;
 
-  // Per-dot data that only changes on resize. Dots that can never reach
-  // visible size are dropped here rather than skipped every frame.
   let n = 0;
   let xs = new Float32Array(0);
   let ys = new Float32Array(0);
@@ -128,7 +122,6 @@ function mount(canvas: HTMLCanvasElement) {
       bucket[i] = b;
       counts[b]++;
     }
-    // Counting sort dots into their buckets.
     let sum = 0;
     for (let b = 0; b < none; b++) {
       const c = counts[b];

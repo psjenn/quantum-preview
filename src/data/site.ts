@@ -310,7 +310,6 @@ export const caseStudies: CaseStudy[] = [
     kind: 'Talent',
     title: 'Hiring a Chief Revenue Officer',
     summary: 'A nationwide search that brought Nicolò Zini to Houston as CRO in January 2026.',
-    // TODO: placeholder topics from the deck's Talent Management slide; confirm with Quantum
     results: ['Executive search', 'Candidate vetting', 'Onboarding support'],
   },
   {
@@ -347,7 +346,6 @@ export const caseStudies: CaseStudy[] = [
     kind: 'Partnerships',
     title: 'Jersey and naming rights partnerships',
     summary: 'Stadium naming rights for both clubs, and two of MLS’s longest-running jersey partnerships.',
-    // TODO: placeholder topics from the deck's Partnership Success slide; confirm with Quantum
     results: ['Jersey partnerships', 'Naming rights', 'Partnership activation'],
     topics: true,
   },
