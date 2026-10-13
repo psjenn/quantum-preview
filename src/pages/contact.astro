@@ -11,7 +11,7 @@ import { team } from '../lib/images';
 
   <section class="section" aria-label="Contact form">
     <div class="wrap split">
-      <form class="form" data-contact data-endpoint={site.formEndpoint} novalidate>
+      <form class="form" data-contact data-endpoint={site.formEndpoint} data-email={site.email} novalidate>
         <fieldset>
           <legend>What can we help with?</legend>
           <div class="topics">
@@ -26,6 +26,7 @@ import { team } from '../lib/images';
         </div>
         <div class="field"><label for="f-org">Organization <span class="opt">(optional)</span></label><input id="f-org" name="organization" autocomplete="organization" /></div>
         <div class="field"><label for="f-msg">What’s going on? <span class="opt">(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
         <p class="form__status" id="f-status" role="status" hidden data-status></p>
         <div><button class="btn btn--primary" type="submit">Send message</button></div>
       </form>
@@ -78,12 +79,16 @@ import { team } from '../lib/images';
         say('This form isn’t connected yet. It will send to Quantum once the site launches.');
         return;
       }
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
       const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } }).catch(() => null);
+      button.disabled = false;
       if (res?.ok) {
         form.reset();
         say('Message sent. A Quantum principal will be in touch.');
       } else {
-        say('Your message didn’t send. Check your connection and try again.');
+        const email = form.dataset.email;
+        say(email ? `Your message didn’t send. Try again, or email us at ${email}.` : 'Your message didn’t send. Check your connection and try again.');
       }
     });
   </script>

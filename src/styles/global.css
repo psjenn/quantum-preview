@@ -143,6 +143,7 @@ h4 { font-size: var(--step-1); font-weight: 650; margin: 0; line-height: 1.25; }
 }
 .btn--primary { background: var(--chalk); color: var(--cobalt); }
 .btn--primary:hover { background: #fff; color: var(--night); }
+.btn:disabled { opacity: 0.6; cursor: progress; }
 .btn--ghost { border-color: rgb(237 242 255 / 0.45); color: var(--chalk); }
 .btn--ghost:hover { border-color: var(--chalk); background: rgb(237 242 255 / 0.06); }
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }

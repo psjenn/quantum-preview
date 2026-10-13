@@ -7,7 +7,8 @@ export const site = {
   url: 'https://quantumseg.com',
   founded: 'Founded in 2022 in Orlando, Florida.',
   motto: 'Take pride in your work, do the right thing and treat people with respect. That’s the Quantum way.',
-  email: '', 
+  // Set both before launch. See README → Contact form.
+  email: '',
   formEndpoint: '',
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/quantum-seg' },

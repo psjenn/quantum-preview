@@ -34,6 +34,17 @@ npm run preview   # serve the built site
 - **Team headshots:** `src/assets/team/<name>.png`.
 - **Photos:** `src/assets/photos/*.jpg`.
 
+## Contact form
+
+The form on `/contact` isn't connected yet. Until it is, submitting shows "This form isn't connected yet." Before launch:
+
+1. Create a form at [formspree.io](https://formspree.io) (the free plan covers 50 submissions a month) and set it to deliver to Quantum's inbox.
+2. Paste the form's endpoint (for example `https://formspree.io/f/abcd1234`) into `formEndpoint` in `src/data/site.ts`.
+3. Set `email` in the same file. It's shown to visitors if a message fails to send.
+4. Deploy, send a test message, and confirm it arrives.
+
+The form posts standard form data and expects a JSON response, so any service that works the same way (Basin, Getform, a custom endpoint) will also work. Submissions include `topic`, `name`, `email`, `organization`, and `message`, plus a hidden `_gotcha` field that Formspree uses to filter spam.
+
 ## Deployment
 
 Deploy to Vercel (framework preset: Astro, output directory: `dist`). Redirects in `vercel.json` are picked up automatically.
