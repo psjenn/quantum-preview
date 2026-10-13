@@ -7,7 +7,7 @@
     { "source": "/client-representation-1", "destination": "/revenue-solutions", "permanent": true },
     { "source": "/talent-management", "destination": "/talent", "permanent": true },
     { "source": "/training", "destination": "/talent", "permanent": true },
-    { "source": "/future-openings", "destination": "/advisory", "permanent": true },
+    { "source": "/future-openings", "destination": "/revenue-solutions", "permanent": true },
     { "source": "/meet-the-team", "destination": "/about", "permanent": true },
     { "source": "/case-studies", "destination": "/work", "permanent": true },
     { "source": "/conversica", "destination": "/sixth-man", "permanent": true },
